@@ -78,5 +78,3 @@ EXP.setPattern(
 export function parse(expr: string): Expression {
     return expectSingleResult(expectEOF(EXP.parse(lexer.parse(expr))));
 }
-
-console.log(JSON.stringify(evaluate(parse('4d20 + 6'))))

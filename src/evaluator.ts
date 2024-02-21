@@ -1,20 +1,29 @@
+import { parse } from "./parser";
 import { Expression, MathExpression, RollValueExpression } from "./types";
 
 type Evaluate = [exp: Expression, value: number]
 
+/**
+ * Evaluate expression tree for rolled dice and total value
+ * 
+ * Converts expressions with tag.roll -> tag.rollValue
+ * 
+ * @param exp expression to be evaluated
+ * @returns Evaluate tuple
+ */
 export function evaluate(exp: Expression): Evaluate {
     switch (exp?.tag) {
         case 'number': return [exp, exp.n]
         case 'math':
             const leftExpression = evaluate(exp.left)
             const rightExpression = evaluate(exp.right)
-            const MathExpression: MathExpression = {
+            const mathExpression: MathExpression = {
                 tag: exp.tag,
                 op: exp.op,
                 left: leftExpression[0],
                 right: rightExpression[0]
             }
-            return [MathExpression, leftExpression[1] + rightExpression[1]]
+            return [mathExpression, eval(`${leftExpression[1]} ${exp.op} ${rightExpression[1]}`)]
         case 'roll':
             const rolls: number[] = []
             for (let index = 0; index < exp.n; index++) {
@@ -27,5 +36,37 @@ export function evaluate(exp: Expression): Evaluate {
                 results: rolls
             }, rolls.reduce((acc, v) => acc + v, 0)]
         case 'rollValue': return [exp, exp.results.reduce((acc, v) => acc + v, 0)]
+    }
+}
+
+/**
+ * Pretty print results of evaluate()
+ * 
+ * @param ev evaluate tuple
+ * @returns Pretty string to display
+ */
+export function evaluateToString(ev: Evaluate): string {
+    const expRecurse = (exp: Expression): string => {
+        switch (exp.tag) {
+            case 'number': return `${exp.n}`
+            case 'rollValue': return `${JSON.stringify(exp.results)}`
+            case 'math': return `${expRecurse(exp.left)} ${exp.op} ${expRecurse(exp.right)}`
+            case 'roll': throw new Error(`Unexpected roll expression: ${JSON.stringify(exp)}`);
+        }
+    }
+
+    return `${expRecurse(ev[0])} > ${ev[1]}`
+}
+
+export function cmdEvaluate(str: string) {
+    try {
+        const exp = parse(str)
+        return evaluateToString(evaluate(exp))
+    } catch (e) {
+        if (e instanceof Error) {
+            console.log(e.message)
+        } else {
+            console.log('Unknown Error')
+        }
     }
 }
