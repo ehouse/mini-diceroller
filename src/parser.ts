@@ -1,6 +1,5 @@
 import { alt, apply, buildLexer, expectEOF, expectSingleResult, str, tok, Token, rule, lrec_sc, seq, kmid } from 'typescript-parsec';
 import type { NumberExpression, RollExpression, Expression } from './types';
-import { evaluate } from './evaluator';
 
 enum TokenKind {
     Number,
@@ -19,7 +18,7 @@ const lexer = buildLexer([
     [true, /^\d+(\.\d+)?/g, TokenKind.Number],
     [true, /^(\d+)?d\d+/g, TokenKind.Die],
     [true, /^\+/g, TokenKind.Add],
-    [true, /^\-/g, TokenKind.Sub],
+    [true, /^-/g, TokenKind.Sub],
     [true, /^\*/g, TokenKind.Mul],
     [true, /^\//g, TokenKind.Div],
     [true, /^\(/g, TokenKind.LParen],

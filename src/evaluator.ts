@@ -1,5 +1,5 @@
 import { parse } from "./parser";
-import { Expression, MathExpression, RollValueExpression } from "./types";
+import { Expression, MathExpression } from "./types";
 
 type Evaluate = [exp: Expression, value: number]
 
@@ -13,8 +13,8 @@ type Evaluate = [exp: Expression, value: number]
  */
 export function evaluate(exp: Expression): Evaluate {
     switch (exp?.tag) {
-        case 'number': return [exp, exp.n]
-        case 'math':
+        case 'number': { return [exp, exp.n] }
+        case 'math': {
             const leftExpression = evaluate(exp.left)
             const rightExpression = evaluate(exp.right)
             const mathExpression: MathExpression = {
@@ -24,7 +24,8 @@ export function evaluate(exp: Expression): Evaluate {
                 right: rightExpression[0]
             }
             return [mathExpression, eval(`${leftExpression[1]} ${exp.op} ${rightExpression[1]}`)]
-        case 'roll':
+        }
+        case 'roll': {
             const rolls: number[] = []
             for (let index = 0; index < exp.n; index++) {
                 rolls.push(Math.floor(Math.random() * exp.sides) + 1)
@@ -35,7 +36,8 @@ export function evaluate(exp: Expression): Evaluate {
                 sides: exp.sides,
                 results: rolls
             }, rolls.reduce((acc, v) => acc + v, 0)]
-        case 'rollValue': return [exp, exp.results.reduce((acc, v) => acc + v, 0)]
+        }
+        case 'rollValue': { return [exp, exp.results.reduce((acc, v) => acc + v, 0)] }
     }
 }
 
@@ -58,6 +60,11 @@ export function evaluateToString(ev: Evaluate): string {
     return `${expRecurse(ev[0])} > ${ev[1]}`
 }
 
+/**
+ * Safely parses string to be printed to the command line
+ * 
+ * @param str string to be evaluated
+ */
 export function cmdEvaluate(str: string) {
     try {
         const exp = parse(str)
