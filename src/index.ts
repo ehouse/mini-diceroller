@@ -1,3 +1,5 @@
+import { evaluate } from "./parser";
+
 export function parse(expression: string) {
-    return expression
+    return evaluate(expression)
 }
