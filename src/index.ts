@@ -1,5 +1,4 @@
-import { evaluate } from "./parser";
+import { evaluate } from "./evaluator"
+import { parse } from "./parser"
 
-export function parse(expression: string) {
-    return evaluate(expression)
-}
+module.exports = { parse, evaluate }

@@ -25,4 +25,4 @@ export type NumberExpression = {
     n: number;
 };
 
-export type Expression = MathExpression | RollExpression | RollValueExpression | NumberExpression | null;
+export type Expression = MathExpression | RollExpression | RollValueExpression | NumberExpression;

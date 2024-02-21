@@ -1,5 +1,6 @@
 import { alt, apply, buildLexer, expectEOF, expectSingleResult, str, tok, Token, rule, lrec_sc, seq, kmid } from 'typescript-parsec';
 import type { NumberExpression, RollExpression, Expression } from './types';
+import { evaluate } from './evaluator';
 
 enum TokenKind {
     Number,
@@ -78,13 +79,4 @@ export function parse(expr: string): Expression {
     return expectSingleResult(expectEOF(EXP.parse(lexer.parse(expr))));
 }
 
-console.log(JSON.stringify(parse('(1d20 + 2) * 3')))
-
-// const parser = alt(
-//     apply(tok(TokenKind.Number), applyNumber),
-//     apply(tok(TokenKind.Die), applyDie)
-// )
-
-// const numberListParser = list_sc(parser, str(','));
-// const parsedOutput = numberListParser.parse(tokenizer.parse('d10, d20, 2d6, 1d12, 123, 456.789, 0'))
-// const numberArray = expectSingleResult(expectEOF(parsedOutput));
+console.log(JSON.stringify(evaluate(parse('4d20 + 6'))))
