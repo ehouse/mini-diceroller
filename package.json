@@ -1,6 +1,6 @@
 {
   "name": "mini-prophecy-diceroller",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "A bare bones ts-parsec diceroller for easy embedding",
   "scripts": {
     "build": "tsc",

@@ -12,4 +12,4 @@ A mini language written using ts-parsec to evaluate a string of rolled dice with
 ## npm Commands
  - `npm run test` - Runs test suit
  - `npm run build` - Runs and outputs compiled typescript
- - `npx ts-node src/cmd.ts '1d20 * 2 + 12 + 1d6'` - Evaluate a roll from the command line
+ - `npx ts-node src/cmd.ts '1d20 * 2 + 1d6'` - Evaluate a roll from the command line

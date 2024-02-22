@@ -1,7 +1,6 @@
 import { parse } from "./parser";
-import { Expression, MathExpression } from "./types";
+import type { EvalExpression, Expression, MathExpression } from "./types";
 
-type Evaluate = [exp: Expression, value: number]
 
 /**
  * Evaluate expression tree for rolled dice and total value
@@ -11,7 +10,7 @@ type Evaluate = [exp: Expression, value: number]
  * @param exp expression to be evaluated
  * @returns Evaluate tuple
  */
-export function evaluate(exp: Expression): Evaluate {
+export function evaluate(exp: Expression): EvalExpression {
     switch (exp?.tag) {
         case 'number': { return [exp, exp.n] }
         case 'math': {
@@ -47,7 +46,7 @@ export function evaluate(exp: Expression): Evaluate {
  * @param ev evaluate tuple
  * @returns Pretty string to display
  */
-export function evaluateToString(ev: Evaluate): string {
+export function evaluateToString(ev: EvalExpression): string {
     const expRecurse = (exp: Expression): string => {
         switch (exp.tag) {
             case 'number': return `${exp.n}`
