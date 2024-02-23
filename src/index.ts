@@ -1,6 +1,6 @@
 import { evaluate } from "./evaluator"
 import { parse } from "./parser"
-import type { EvalExpression, Expression } from "./types"
+import type { EvalExpression } from "./types"
 
 /**
  * Takes an input string and returns an Evaluated Expression to be displayed
@@ -12,6 +12,4 @@ function exec(input: string): EvalExpression {
     return evaluate(parse(input))
 }
 
-export * from './types'
-
-module.exports = { parse, evaluate, exec }
+export { exec, evaluate, parse }
