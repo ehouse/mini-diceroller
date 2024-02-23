@@ -1,15 +1,6 @@
-import { evaluate } from "./evaluator"
-import { parse } from "./parser"
-import type { EvalExpression } from "./types"
+//import { evaluate } from "./evaluator"
+//import { parse } from "./parser"
+//import type { EvalExpression } from "./types"
 
-/**
- * Takes an input string and returns an Evaluated Expression to be displayed
- * 
- * @param input input string to be parsed
- * @returns 
- */
-function exec(input: string): EvalExpression {
-    return evaluate(parse(input))
-}
-
-export { exec, evaluate, parse }
+export { exec, evaluate } from './evaluator'
+export { parse } from './parser'

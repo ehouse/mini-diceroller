@@ -5,10 +5,11 @@ import dts from 'vite-plugin-dts';
 // https://vitejs.dev/guide/build.html#library-mode
 export default defineConfig({
     build: {
+        sourcemap: true,
         lib: {
             entry: resolve(__dirname, 'src/index.ts'),
-            name: 'mini-prophecy-diceroller',
-            fileName: 'mini-prophecy-diceroller',
+            name: 'prophecy',
+            fileName: (format) => `index.${format}.js`,
         },
     },
     plugins: [dts()],

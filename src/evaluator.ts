@@ -76,3 +76,13 @@ export function cmdEvaluate(str: string) {
         }
     }
 }
+
+/**
+ * Takes an input string and returns an Evaluated Expression to be displayed
+ * 
+ * @param input input string to be parsed
+ * @returns 
+ */
+export function exec(input: string): EvalExpression {
+    return evaluate(parse(input))
+}
