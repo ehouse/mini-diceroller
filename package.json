@@ -1,6 +1,6 @@
 {
   "name": "mini-diceroller",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "A bare bones ts-parsec diceroller for easy embedding",
   "type": "module",
   "scripts": {
