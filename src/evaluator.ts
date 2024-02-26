@@ -1,7 +1,6 @@
 import { parse } from "./parser";
 import type { EvalExpression, Expression, MathExpression } from "./types";
 
-
 /**
  * Evaluate expression tree for rolled dice and total value
  * 
@@ -37,6 +36,10 @@ export function evaluate(exp: Expression): EvalExpression {
         }
         case 'roll': {
             const rolls: number[] = []
+            // Limit roll size to prevent node/js crash 
+            if (exp.n > Math.pow(2, 16)) {
+                throw new Error(`roll max value: ${Math.pow(2, 16)}`)
+            }
             for (let index = 0; index < exp.n; index++) {
                 rolls.push(Math.floor(Math.random() * exp.sides) + 1)
             }

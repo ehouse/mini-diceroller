@@ -1,6 +1,6 @@
-# Mini Prophecy Diceroller
+# Mini Diceroller
 
-[NPM Registry](https://www.npmjs.com/package/mini-prophecy-diceroller)
+[NPM Registry](https://www.npmjs.com/package/mini-diceroller)
 
 A mini language written using ts-parsec to evaluate a string of rolled dice with arthritic expressions 
 
@@ -12,4 +12,11 @@ A mini language written using ts-parsec to evaluate a string of rolled dice with
 ## npm Commands
  - `npm run test` - Runs test suit
  - `npm run build` - Runs and outputs compiled typescript
- - `npx ts-node src/cmd.ts '1d20 * 2 + 1d6'` - Evaluate a roll from the command line
+
+## Local REPL
+```
+[mini-diceroller]$ node 
+> const cmd = await import("./dist/index.js")
+> cmd.cmdEvaluate("1d20 + 2")
+'[13] + 2 > 15'
+```

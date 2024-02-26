@@ -19,7 +19,6 @@
   },
   "homepage": "https://github.com/ehouse/mini-prophecy-diceroller#readme",
   "dependencies": {
-    "commander": "^12.0.0",
     "typescript-parsec": "^0.3.4"
   },
   "devDependencies": {
