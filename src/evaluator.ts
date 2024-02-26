@@ -22,7 +22,18 @@ export function evaluate(exp: Expression): EvalExpression {
                 left: leftExpression[0],
                 right: rightExpression[0]
             }
-            return [mathExpression, eval(`${leftExpression[1]} ${exp.op} ${rightExpression[1]}`)]
+            switch (exp.op) {
+                case '+':
+                    return [mathExpression, leftExpression[1] + rightExpression[1]]
+                case '-':
+                    return [mathExpression, leftExpression[1] - rightExpression[1]]
+                case '/':
+                    return [mathExpression, leftExpression[1] / rightExpression[1]]
+                case '*':
+                    return [mathExpression, leftExpression[1] * rightExpression[1]]
+                default:
+                    throw new Error('Unhandled Operation')
+            }
         }
         case 'roll': {
             const rolls: number[] = []
