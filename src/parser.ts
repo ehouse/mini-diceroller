@@ -1,6 +1,8 @@
 import { alt, apply, buildLexer, expectEOF, expectSingleResult, str, tok, Token, rule, lrec_sc, seq, kmid } from 'typescript-parsec';
 import type { NumberExpression, RollExpression, Expression } from './types';
 
+export class EmptyExpressionError extends Error { constructor() { super(); this.message = 'Cannot parse an empty expression' } }
+
 enum TokenKind {
     Number,
     Comma,
@@ -75,5 +77,8 @@ EXP.setPattern(
 );
 
 export function parse(expr: string): Expression {
+    if (expr.length === 0) {
+        throw new EmptyExpressionError()
+    }
     return expectSingleResult(expectEOF(EXP.parse(lexer.parse(expr))));
 }

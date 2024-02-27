@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ehouse/mini-prophecy-diceroller.git"
+    "url": "git+https://github.com/ehouse/mini-diceroller.git"
   },
   "author": "Evelyn House (eve@ehouse.io)",
   "license": "MPL-2.0",
   "bugs": {
-    "url": "https://github.com/ehouse/mini-prophecy-diceroller/issues"
+    "url": "https://github.com/ehouse/mini-diceroller/issues"
   },
-  "homepage": "https://github.com/ehouse/mini-prophecy-diceroller#readme",
+  "homepage": "https://github.com/ehouse/mini-diceroller#readme",
   "dependencies": {
     "typescript-parsec": "^0.3.4"
   },
