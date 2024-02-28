@@ -2,6 +2,8 @@
 
 [NPM Registry](https://www.npmjs.com/package/mini-diceroller)
 
+[Demo Site](https://1d20.io)
+
 A mini language written using ts-parsec to evaluate a string of rolled dice with arthritic expressions 
 
 ## Supported Tokens

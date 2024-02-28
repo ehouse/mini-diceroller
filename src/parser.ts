@@ -1,5 +1,5 @@
 import { alt, apply, buildLexer, expectEOF, expectSingleResult, str, tok, Token, rule, lrec_sc, seq, kmid } from 'typescript-parsec';
-import type { NumberExpression, RollExpression, Expression } from './types';
+import type { NumberExpression, RollExpression, Expression, RollAdvantageExpression } from './types';
 
 export class EmptyExpressionError extends Error { constructor() { super(); this.message = 'Cannot parse an empty expression' } }
 
@@ -18,7 +18,7 @@ enum TokenKind {
 
 const lexer = buildLexer([
     [true, /^\d+(\.\d+)?/g, TokenKind.Number],
-    [true, /^(\d+)?d\d+/g, TokenKind.Die],
+    [true, /^(\d+|v|\^)?d\d+/g, TokenKind.Die],
     [true, /^\+/g, TokenKind.Add],
     [true, /^-/g, TokenKind.Sub],
     [true, /^\*/g, TokenKind.Mul],
@@ -36,13 +36,31 @@ function applyNumber(value: Token<TokenKind>): NumberExpression {
     return { tag: 'number', n: +value.text }
 }
 
-function applyDie(value: Token<TokenKind>): RollExpression {
+function applyDie(value: Token<TokenKind>): RollExpression | RollAdvantageExpression {
     const splitToken = value.text.split('d')
 
-    return {
-        tag: 'roll',
-        n: Number(splitToken[0]),
-        sides: Number(splitToken[1])
+    if (splitToken[0] === 'v') {
+        return {
+            tag: 'rollDisadvantage',
+            sides: Number(splitToken[1])
+        }
+    } else if (splitToken[0] === '^') {
+        return {
+            tag: 'rollAdvantage',
+            sides: Number(splitToken[1])
+        }
+    } else if (Number.isInteger(splitToken[0])) {
+        return {
+            tag: 'roll',
+            n: Number(splitToken[0]),
+            sides: Number(splitToken[1])
+        }
+    } else {
+        return {
+            tag: 'roll',
+            n: 1,
+            sides: Number(splitToken[1])
+        }
     }
 }
 

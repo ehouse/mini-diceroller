@@ -13,6 +13,11 @@ export type RollExpression = {
     sides: number;
 };
 
+export type RollAdvantageExpression = {
+    tag: "rollDisadvantage" | "rollAdvantage"
+    sides: number;
+};
+
 export type RollValueExpression = {
     tag: "rollValue";
     n: number;
@@ -27,5 +32,8 @@ export type NumberExpression = {
 
 export type EvalExpression = [exp: Expression, value: number]
 
-
-export type Expression = MathExpression | RollExpression | RollValueExpression | NumberExpression;
+export type Expression = MathExpression
+    | RollExpression
+    | RollAdvantageExpression
+    | RollValueExpression
+    | NumberExpression;

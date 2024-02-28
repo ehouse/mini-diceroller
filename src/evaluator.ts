@@ -50,6 +50,30 @@ export function evaluate(exp: Expression): EvalExpression {
                 results: rolls
             }, rolls.reduce((acc, v) => acc + v, 0)]
         }
+        case 'rollAdvantage': {
+            const rolls: number[] = []
+            for (let index = 0; index < 2; index++) {
+                rolls.push(Math.floor(Math.random() * exp.sides) + 1)
+            }
+            return [{
+                tag: "rollValue",
+                n: 2,
+                sides: exp.sides,
+                results: rolls
+            }, Math.max(...rolls)]
+        }
+        case 'rollDisadvantage': {
+            const rolls: number[] = []
+            for (let index = 0; index < 2; index++) {
+                rolls.push(Math.floor(Math.random() * exp.sides) + 1)
+            }
+            return [{
+                tag: "rollValue",
+                n: 2,
+                sides: exp.sides,
+                results: rolls
+            }, Math.min(...rolls)]
+        }
         case 'rollValue': { return [exp, exp.results.reduce((acc, v) => acc + v, 0)] }
     }
 }
@@ -66,7 +90,7 @@ export function evaluateToString(ev: EvalExpression): string {
             case 'number': return `${exp.n}`
             case 'rollValue': return `${JSON.stringify(exp.results)}`
             case 'math': return `${expRecurse(exp.left)} ${exp.op} ${expRecurse(exp.right)}`
-            case 'roll': throw new Error(`Unexpected roll expression: ${JSON.stringify(exp)}`);
+            default: throw new Error(`Unhandled expression:  ${JSON.stringify(exp)}`)
         }
     }
 
