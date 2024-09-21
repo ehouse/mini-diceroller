@@ -9,6 +9,10 @@ describe('test single parser', () => {
     it('single die roll', () => {
         expect(parse('1d20')).toEqual({ "n": 1, "sides": 20, "tag": "roll", });
     })
+
+    it('multiple die roll', () => {
+        expect(parse('2d20')).toEqual({ "n": 2, "sides": 20, "tag": "roll", });
+    })
 })
 
 describe('Test CMD', () => {

@@ -49,7 +49,7 @@ function applyDie(value: Token<TokenKind>): RollExpression | RollAdvantageExpres
             tag: 'rollAdvantage',
             sides: Number(splitToken[1])
         }
-    } else if (Number.isInteger(splitToken[0])) {
+    } else if (Number.isInteger(Number.parseInt(splitToken[0]))) {
         return {
             tag: 'roll',
             n: Number(splitToken[0]),
