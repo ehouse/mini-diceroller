@@ -7,6 +7,10 @@ describe("test single parser", () => {
     expect(parse("1")).toEqual({ n: 1, tag: "number" });
   });
 
+  test("single negative number", () => {
+    expect(parse("-8")).toEqual({ n: -8, tag: "number" });
+  });
+
   test("single die roll", () => {
     expect(parse("1d20")).toEqual({ n: 1, sides: 20, tag: "roll" });
   });
