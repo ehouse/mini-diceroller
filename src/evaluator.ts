@@ -74,12 +74,13 @@ export function evaluate(ex: Expression): EvaluatedExpression {
     case "roll": {
       const rolls: number[] = [];
       // Limit roll size to prevent node/js crash
-      if (ex.n > Math.pow(2, 16)) {
+      if (Math.abs(ex.n) > Math.pow(2, 16)) {
         throw new Error(`roll max value: ${Math.pow(2, 16)}`);
       }
 
-      for (let index = 0; index < ex.n; index++) {
-        rolls.push(Math.floor(Math.random() * ex.sides) + 1);
+      for (let index = 0; index < Math.abs(ex.n); index++) {
+        const roll = Math.floor(Math.random() * ex.sides) + 1;
+        rolls.push(ex.n > 0 ? roll : -roll);
       }
 
       const avg = ex.n * ((1 + ex.sides) / 2);
